@@ -3,46 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domen sotiladi</title>
+
+    <title>wwwv.uz — Domen sotiladi</title>
+
+    <meta name="description" content="wwwv.uz domeni sotiladi. Bog‘lanish uchun Telegram orqali yozing.">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "SF Pro Display",
+                "SF Pro Text",
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            color: #fff;
+
+            background:
+                radial-gradient(circle at 50% -10%, #343434 0%, transparent 45%),
+                radial-gradient(circle at 10% 90%, #16213b 0%, transparent 35%),
+                #050505;
+
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #111;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
+
+            overflow: hidden;
         }
 
-        .box {
-            padding: 40px;
+        /* Orqa fondagi yumshoq chiroqlar */
+        .glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .22;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow.one {
+            background: #007aff;
+            top: -150px;
+            left: -100px;
+        }
+
+        .glow.two {
+            background: #8e8e93;
+            right: -150px;
+            bottom: -150px;
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(25px, -20px);
+            }
+        }
+
+        /* Asosiy karta */
+        .card {
+            position: relative;
+
+            width: min(92%, 560px);
+            padding: 55px 35px 42px;
+
+            text-align: center;
+
+            background: rgba(255, 255, 255, .075);
+
+            border: 1px solid rgba(255, 255, 255, .13);
+
+            border-radius: 32px;
+
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, .55),
+                inset 0 1px 0 rgba(255,255,255,.12);
+
+            animation: appear .8s cubic-bezier(.2,.8,.2,1);
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Sticker */
+        .sticker {
+            width: 92px;
+            height: 92px;
+
+            margin: 0 auto 25px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 50px;
+
+            border-radius: 27px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.2),
+                    rgba(255,255,255,.04)
+                );
+
+            border: 1px solid rgba(255,255,255,.15);
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.3),
+                inset 0 1px 0 rgba(255,255,255,.18);
+
+            transform: rotate(-4deg);
+
+            animation: sticker 4s ease-in-out infinite;
+        }
+
+        @keyframes sticker {
+            0%, 100% {
+                transform: rotate(-4deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(4deg) translateY(-8px);
+            }
         }
 
         h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            margin: 0;
+
+            font-size: clamp(34px, 8vw, 56px);
+            line-height: 1.05;
+
+            letter-spacing: -2.5px;
+            font-weight: 800;
+
+            background: linear-gradient(
+                135deg,
+                #ffffff 20%,
+                #bdbdbd 55%,
+                #ffffff 85%
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        p {
-            font-size: 22px;
+        .domain {
+            margin-top: 12px;
+
+            font-size: clamp(22px, 5vw, 30px);
+            font-weight: 700;
+
+            letter-spacing: -.8px;
+
+            color: #8ab4ff;
+
+            text-shadow: 0 0 25px rgba(50,130,255,.25);
         }
 
-        a {
-            color: #229ED9;
+        .description {
+            max-width: 420px;
+
+            margin: 22px auto 30px;
+
+            color: #b8b8bd;
+
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* Telegram tugmasi */
+        .telegram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            min-width: 230px;
+
+            padding: 15px 23px;
+
+            border-radius: 18px;
+
+            color: #fff;
             text-decoration: none;
-            font-weight: bold;
+
+            font-size: 17px;
+            font-weight: 700;
+
+            background: linear-gradient(
+                135deg,
+                #229ed9,
+                #147dc2
+            );
+
+            box-shadow:
+                0 12px 35px rgba(34,158,217,.25);
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                filter .25s ease;
+        }
+
+        .telegram:hover {
+            transform: translateY(-4px) scale(1.02);
+
+            box-shadow:
+                0 18px 45px rgba(34,158,217,.4);
+
+            filter: brightness(1.08);
+        }
+
+        .telegram:active {
+            transform: scale(.97);
+        }
+
+        .telegram-icon {
+            font-size: 23px;
+        }
+
+        /* Pastki yozuv */
+        .footer {
+            margin-top: 30px;
+
+            color: #66666c;
+
+            font-size: 13px;
+            letter-spacing: .3px;
+        }
+
+        /* Telefon */
+        @media (max-width: 600px) {
+
+            body {
+                padding: 18px;
+            }
+
+            .card {
+                width: 100%;
+                padding: 42px 22px 32px;
+                border-radius: 27px;
+            }
+
+            .sticker {
+                width: 78px;
+                height: 78px;
+                font-size: 42px;
+                border-radius: 23px;
+            }
+
+            h1 {
+                letter-spacing: -1.8px;
+            }
+
+            .description {
+                font-size: 15.5px;
+                margin-top: 18px;
+            }
+
+            .telegram {
+                width: 100%;
+            }
+
+            .footer {
+                margin-top: 24px;
+            }
+        }
+
+        /* Juda kichik telefonlar */
+        @media (max-width: 360px) {
+
+            .card {
+                padding: 35px 18px 28px;
+            }
+
+            .sticker {
+                width: 70px;
+                height: 70px;
+                font-size: 37px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+        }
+
+        /* Yorug'lik rejimi */
+        @media (prefers-color-scheme: light) {
+
+            body {
+                color: #111;
+
+                background:
+                    radial-gradient(
+                        circle at 50% -10%,
+                        #dceaff 0%,
+                        transparent 50%
+                    ),
+                    #f5f5f7;
+            }
+
+            .card {
+                background: rgba(255,255,255,.65);
+
+                border-color: rgba(0,0,0,.08);
+
+                box-shadow:
+                    0 30px 80px rgba(0,0,0,.12),
+                    inset 0 1px 0 rgba(255,255,255,.8);
+            }
+
+            h1 {
+                background: linear-gradient(
+                    135deg,
+                    #111,
+                    #555
+                );
+
+                -webkit-background-clip: text;
+                background-clip: text;
+            }
+
+            .description {
+                color: #666;
+            }
+
+            .footer {
+                color: #999;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="box">
-        <h1>🚀 Domen sotiladi</h1>
-        <p>Telegram: <a href="https://t.me/bshaxriyor">@bshaxriyor</a></p>
-    </div>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <main class="card">
+
+        <div class="sticker">
+            🚀
+        </div>
+
+        <h1>Domen sotiladi</h1>
+
+        <div class="domain">
+            wwwv.uz
+        </div>
+
+        <p class="description">
+            Qisqa, esda qoladigan va chiroyli domen.
+            Domenni sotib olish bo‘yicha bog‘lanish uchun Telegram orqali yozing.
+        </p>
+
+        <a
+            class="telegram"
+            href="https://t.me/bshaxriyor"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <span class="telegram-icon">✈️</span>
+            <span>@bshaxriyor</span>
+        </a>
+
+        <div class="footer">
+            © 2026 wwwv.uz
+        </div>
+
+    </main>
+
 </body>
 </html>
